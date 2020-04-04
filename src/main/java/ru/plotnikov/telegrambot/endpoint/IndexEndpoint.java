@@ -8,7 +8,7 @@ public class IndexEndpoint {
 
     @GetMapping("/")
     public String index() {
-        return "hello";
+        return "hello, Moto";
     }
 
 }
