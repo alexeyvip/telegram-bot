@@ -27,7 +27,11 @@ git push heroku master
 ```
 heroku ps:scale web=1
 ```
-* Open in browser "$HEROKU_URL"(was generated in "Create app in heroku")/getUpdates and you see JSON, you should save chat_id
+* Open in browser 
+```
+"$HEROKU_URL"(was generated in "Create app in heroku")/getUpdates
+```
+and you see JSON, you should save chat_id
 * Set up $CHAT_ID from above step via "heroku config"
 ```
 heroku config:set TELEGRAM_CHAT_ID=$CHAT_ID
@@ -35,5 +39,5 @@ heroku config:set TELEGRAM_CHAT_ID=$CHAT_ID
 * Restart your app on heroku
 * Now, you can send telegram message via
 ```
-curl -G -v --data-urlencode "text=Hey" "https://$$HEROKU_URL/message/send"
+curl -G -v --data-urlencode "text=Hey" "https://$HEROKU_URL/message/send"
 ``` 
