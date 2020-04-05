@@ -45,7 +45,7 @@ public class TelegramService {
     }
 
     private static String buildParams(Map<String, String> params) {
-        var builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             if (builder.length() > 0) {
                 builder.append("&");
