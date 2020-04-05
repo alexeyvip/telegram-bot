@@ -1,0 +1,2 @@
+telegram-bot:
+  api-key: ${TELEGRAM_API_KEY}
