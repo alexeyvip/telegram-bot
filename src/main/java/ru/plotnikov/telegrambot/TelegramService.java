@@ -19,18 +19,29 @@ public class TelegramService {
 
     private final String sendMessageUrl;
     private final URI getUpdatesUrl;
+    private final String chatId;
 
     private final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).
             connectTimeout(Duration.ofSeconds(15)).build();
 
     @Autowired
-    public TelegramService(@Value("${telegram-bot.api-key}") String apiKey) {
+    public TelegramService(@Value("${telegram-bot.api-key}") String apiKey, @Value("${telegram-bot.chat-id}") String chatId) {
         this.sendMessageUrl = String.format("https://api.telegram.org/bot%s/sendMessage", apiKey);
         this.getUpdatesUrl = URI.create(String.format("https://api.telegram.org/bot%s/getUpdates", apiKey));
+        this.chatId = chatId;
     }
 
-    public boolean sendMessage(Map<String, String> params) {
-        return false;
+    public String sendMessage(Map<String, String> params) throws IOException, InterruptedException {
+        params.put("chat_id", chatId);
+        params.put("disable_web_page_preview", "1");
+        HttpRequest request = HttpRequest.newBuilder().
+                GET().
+                uri(URI.create(sendMessageUrl + "?" + buildParams(params))).
+                build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.body();
     }
 
     public String getUpdates() throws IOException, InterruptedException {

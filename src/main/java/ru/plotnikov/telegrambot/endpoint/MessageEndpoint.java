@@ -20,8 +20,8 @@ public class MessageEndpoint {
     }
 
     @GetMapping("/message/send")
-    public String messageSend(@RequestParam Map<String, String> params) {
-        return "FAIL";
+    public String messageSend(@RequestParam Map<String, String> params) throws IOException, InterruptedException {
+        return telegramService.sendMessage(params);
     }
 
     @GetMapping("/getUpdates")
